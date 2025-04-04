@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { AnswerAttachment } from '@/domain/forum/enterprise/entities/answer-attachment'
-import { Comment as PrismaAnswerAttachment } from '@prisma/client'
+import { Attachment as PrismaAnswerAttachment } from '@prisma/client'
 
 export class PrismaAnswerAttachmentMapper {
   static toDomain(raw: PrismaAnswerAttachment): AnswerAttachment {
