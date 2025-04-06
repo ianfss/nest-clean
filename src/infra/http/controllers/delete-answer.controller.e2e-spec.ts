@@ -54,8 +54,6 @@ describe('Delete answer (E2E)', () => {
       .set('Authorization', `Bearer ${accessToken}`)
       .send()
 
-    console.log('response', response.body)
-
     expect(response.statusCode).toBe(204)
 
     const questionOnDatabase = await prisma.question.findUnique({
