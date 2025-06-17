@@ -13,8 +13,8 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
   constructor(
     private questionAttachmentsRepository: InMemoryQuestionAttachmentsRepository,
     private attachmentsRepository: InMemoryAttachmentsRepository,
-    private studentsRepository: InMemoryStudentsRepository
-  ) { }
+    private studentsRepository: InMemoryStudentsRepository,
+  ) {}
 
   async findBySlug(slug: string) {
     const question = this.items.find((item) => item.slug.value === slug)
@@ -33,24 +33,30 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
       return null
     }
 
-    const author = this.studentsRepository.items.find(student => {
+    const author = this.studentsRepository.items.find((student) => {
       return student.id.equals(question.authorId)
     })
 
     if (!author) {
-      throw new Error(`Author with ID "${question.authorId.toString()}" does not exist.`)
+      throw new Error(
+        `Author with ID "${question.authorId.toString()}" does not exist.`,
+      )
     }
 
-    const questionAttachments = this.questionAttachmentsRepository.items.filter(questionAttachment => {
-      return questionAttachment.questionId.equals(question.id)
-    })
+    const questionAttachments = this.questionAttachmentsRepository.items.filter(
+      (questionAttachment) => {
+        return questionAttachment.questionId.equals(question.id)
+      },
+    )
 
-    const attachments = questionAttachments.map(questionAttachment => {
-      const attachment = this.attachmentsRepository.items.find(attachment => {
+    const attachments = questionAttachments.map((questionAttachment) => {
+      const attachment = this.attachmentsRepository.items.find((attachment) => {
         return attachment.id.equals(questionAttachment.attachmentId)
       })
-      if(!attachment) {
-        throw new Error(`Attachment with ID "${questionAttachment.attachmentId.toString()}" does not exist.`)
+      if (!attachment) {
+        throw new Error(
+          `Attachment with ID "${questionAttachment.attachmentId.toString()}" does not exist.`,
+        )
       }
 
       return attachment
